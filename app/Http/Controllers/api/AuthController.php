@@ -25,11 +25,15 @@ class AuthController extends Controller
             $userInput = $request->all();
             $userInput['password'] = Hash::make($request->password);
             $user = User::create($userInput);
+            $response = [
+                "token" => null,
+            ];
             
             $token = $user->createToken($request->email, ['user'])->plainTextToken;
+            $response["token"] = $token;
 
             if($token) {
-                return APIFormatter::createAPI(200, "Success", $token);
+                return APIFormatter::createAPI(200, "Success", $response);
             } else {
                 return APIFormatter::createAPI(400, 'Failed');
             }
@@ -46,14 +50,18 @@ class AuthController extends Controller
             ]);
     
             $user = User::where('email', $request->email)->first();
+            $response = [
+                "token" => null,
+            ];
     
             if (!$user || !Hash::check($request->password, $user->password)) {
                 return APIFormatter::createAPI(422, 'Email atau kata sandi salah.');
             } else {
                 $token = $user->createToken($request->email, ['user'])->plainTextToken;
+                $response["token"] = $token;
     
                 if($token) {
-                    return APIFormatter::createAPI(200, "Success", $token);
+                    return APIFormatter::createAPI(200, "Success", $response);
                 } else {
                     return APIFormatter::createAPI(400, 'Failed');
                 }
