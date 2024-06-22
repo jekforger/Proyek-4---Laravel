@@ -32,6 +32,33 @@ class ExerciseSeeder extends Seeder
                 'created_at' => date("Y-m-d H:i:s", time()),
                 'updated_at' => date("Y-m-d H:i:s", time()),
             ],
+            [
+                'exercise_name' => 'Crunch Apalah',
+                'time' => 'x16',
+                'instructions' => 'Berbaring di punggung Anda dengan lutut ditekuk dan telapak tangan di bawah kepala. Kemudian angkat bahu Anda dari lantai. Pertahankan selama beberapa detik dan perlahan-lahan kembali ke posisi awal. Latihan ini terutama bekerja di otot rektus abdominis dan otot oblik.',
+                'set_type_id' => '2',
+                'body_mass_standard_id' => '4',
+                'created_at' => date("Y-m-d H:i:s", time()),
+                'updated_at' => date("Y-m-d H:i:s", time()),
+            ],
+            [
+                'exercise_name' => 'Push up',
+                'time' => 'x16',
+                'instructions' => 'Tengkurap lalu dorong badan menggunakan badan.',
+                'set_type_id' => '1',
+                'body_mass_standard_id' => '3',
+                'created_at' => date("Y-m-d H:i:s", time()),
+                'updated_at' => date("Y-m-d H:i:s", time()),
+            ],
+            [
+                'exercise_name' => 'Pull Up',
+                'time' => 'x16',
+                'instructions' => 'Bergelantung pada bar, lalu tarik badan ke atas hingga bar berada di bawah dagu.',
+                'set_type_id' => '1',
+                'body_mass_standard_id' => '1',
+                'created_at' => date("Y-m-d H:i:s", time()),
+                'updated_at' => date("Y-m-d H:i:s", time()),
+            ],
         ]);
     }
 }

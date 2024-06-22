@@ -35,10 +35,10 @@ class AuthController extends Controller
             if($token) {
                 return APIFormatter::createAPI(200, "Success", $response);
             } else {
-                return APIFormatter::createAPI(400, 'Failed');
+                return APIFormatter::createAPI(400, 'Failed', $response);
             }
         } catch (Exception $e) {
-            return APIFormatter::createAPI(500, 'Failed', $e);
+            return APIFormatter::createAPI(500, 'Error', $e);
         }
     }
 
@@ -55,7 +55,7 @@ class AuthController extends Controller
             ];
     
             if (!$user || !Hash::check($request->password, $user->password)) {
-                return APIFormatter::createAPI(422, 'Email atau kata sandi salah.');
+                return APIFormatter::createAPI(422, 'Email atau kata sandi salah.', $response);
             } else {
                 $token = $user->createToken($request->email, ['user'])->plainTextToken;
                 $response["token"] = $token;
@@ -63,7 +63,7 @@ class AuthController extends Controller
                 if($token) {
                     return APIFormatter::createAPI(200, "Success", $response);
                 } else {
-                    return APIFormatter::createAPI(400, 'Failed');
+                    return APIFormatter::createAPI(400, 'Failed', $response);
                 }
             }
         } catch (Exception $e) {
@@ -71,18 +71,22 @@ class AuthController extends Controller
         }
     }
 
-    public function signOut($tokenId)
+    public function signOut(Request $request)
     {
         try {
-            $data = DB::delete("delete from personal_access_tokens where id = '$tokenId'");
+            $token = $request->bearerToken();
+            $pipePosition = strpos($token, '|');
+            $tokenId = substr($token, 0, $pipePosition);
 
-            if($data) {
-                return APIFormatter::createAPI(200, 'Berhasil logout', true);
+            $deleted = DB::delete("delete from personal_access_tokens where id = '$tokenId'");
+
+            if($deleted) {
+                return APIFormatter::createAPI(200, 'Success', true);
             } else {
                 return APIFormatter::createAPI(400, 'Failed', false);
             }
-        } catch (Exception $e) {
-            return APIFormatter::createAPI(500, 'Failed', $e);
+        } catch (\Throwable $th) {
+            return APIFormatter::createAPI(500, 'Gagal keluar', $th);
         }
     }
 }

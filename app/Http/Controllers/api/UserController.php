@@ -45,12 +45,12 @@ class UserController extends Controller
             ]);
 
             if($user) {
-                return APIFormatter::createAPI(200, "Success", $user);
+                return APIFormatter::createAPI(200, "Berhasil menghitung skor BMI anda!!!", $user);
             } else {
-                return APIFormatter::createAPI(400, 'Failed');
+                return APIFormatter::createAPI(400, 'Gagal menghitung skor BMI anda!!!');
             }
         } catch (Exception $e) {
-            return APIFormatter::createAPI(500, 'Failed', $e);
+            return APIFormatter::createAPI(500, 'Error server', $e);
         }
     }
 }

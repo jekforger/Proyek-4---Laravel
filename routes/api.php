@@ -19,8 +19,8 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('bmi', [UserController::class, 'bmi']);
     
     //Exercise
-    Route::get('exercises/{body_mass_standard_id}', [ExerciseController::class, 'exercises']);
+    Route::get('exercises', [ExerciseController::class, 'exercises']);
 
     //Auth
-    Route::post('sign-out/{tokenId}', [AuthController::class, 'signOut']);
+    Route::post('sign-out', [AuthController::class, 'signOut']);
 });
