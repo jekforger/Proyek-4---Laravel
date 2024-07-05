@@ -20,6 +20,9 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     
     //Exercise
     Route::get('exercises', [ExerciseController::class, 'exercises']);
+    Route::post('create-achievement', [ExerciseController::class, 'createAchievement']);
+    Route::get('achievement', [ExerciseController::class, 'achievement']);
+    Route::get('detail-achievement', [ExerciseController::class, 'detailAchievement']);
 
     //Auth
     Route::post('sign-out', [AuthController::class, 'signOut']);

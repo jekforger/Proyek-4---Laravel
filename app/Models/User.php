@@ -76,4 +76,9 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Gender::class, 'gender_id');
     }
+
+    public function achievement()
+    {
+        return $this->hasOne(Achievement::class, 'gender_id');
+    }
 }
